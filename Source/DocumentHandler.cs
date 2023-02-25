@@ -2,14 +2,14 @@
 using Rhino.UI;
 using Rhino.Commands;
 
-namespace GhPod
+namespace Catsule
 {
     [CommandStyle(Style.ScriptRunner)]
     public class DocumentHandler
     {
         public static void OnRhinoDocumentOpen(object sender, Rhino.DocumentOpenEventArgs args)
         {
-            if (GhPod.Instance.IsActive)
+            if (Catsule.Instance.IsActive)
             {
                 Rhino.RhinoApp.WriteLine("Plugin is active");
                 string

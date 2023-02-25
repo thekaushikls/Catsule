@@ -2,7 +2,7 @@
 using Rhino;
 using Rhino.Commands;
 
-namespace GhPod
+namespace Catsule
 {
     [CommandStyle(Style.ScriptRunner)]
     public class GhReloadCommand : Command

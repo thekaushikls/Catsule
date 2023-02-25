@@ -2,7 +2,7 @@
 using Rhino.Commands;
 using Rhino.Input.Custom;
 
-namespace GhPod
+namespace Catsule
 {
     public class GhSettingsCommand : Command
     {
@@ -15,11 +15,11 @@ namespace GhPod
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
-            OptionToggle isActiveOption = new OptionToggle(GhPod.Instance.IsActive, "Disabled", "Active");
+            OptionToggle isActiveOption = new OptionToggle(Catsule.Instance.IsActive, "Disabled", "Active");
 
             GetOption getOption = new GetOption();
             getOption.AddOptionToggle("Status", ref isActiveOption);
-            getOption.SetCommandPrompt("ghPod Settings");
+            getOption.SetCommandPrompt("Catsule Settings");
             Rhino.Input.GetResult result = getOption.Get();
 
             if (result == Rhino.Input.GetResult.Cancel)
@@ -27,7 +27,9 @@ namespace GhPod
             else if (getOption.CommandResult() == Result.Success)
             {
                 // `result` will always be of type => `Option`
-                GhPod.Instance.IsActive = isActiveOption.CurrentValue;
+                Catsule.Instance.IsActive = isActiveOption.CurrentValue;
+                string status = isActiveOption.CurrentValue ? "Enabled" : "Disabled";
+                RhinoApp.WriteLine($"Autoload {status}");
                 return Result.Success;
             }
             else
