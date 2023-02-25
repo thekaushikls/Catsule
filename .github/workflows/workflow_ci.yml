@@ -66,6 +66,8 @@ jobs:
   build_plugin:
     name: Build Plugin
     runs-on: windows-latest
+    permissions:
+      contents: write
     needs: [check_version]
 
     steps:
