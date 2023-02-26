@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <Version>0.1.1-alpha</Version>
+    <Version>0.1.2-alpha</Version>
     <Title>Catsule</Title>
     <Description>Rhino Plugin to automate Grasshopper.</Description>
     <TargetExt>.rhp</TargetExt>

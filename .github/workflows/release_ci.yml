@@ -1,6 +1,6 @@
 # Runs on push to main / release, manual trigger,
 # and every Friday at 11:00 UTC | 12:00 CET | 16:30 IST
-name: workflow_ci
+name: release_ci
 
 on:
   push:
@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       any_changed: ${{steps.changed-files.outputs.any_changed}}
+      version: ${{steps.set_version.outputs.version}}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3.3.0
@@ -36,19 +37,9 @@ jobs:
           echo No change in version detected.
           echo Exiting workflow.
           exit 1
-          
-  check_version:
-    name: Check Version
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{steps.set_version.outputs.version}}
-    needs: [check_changes]
-    if: ${{needs.check_changes.outputs.any_changed == 'true'}}
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3.3.0
 
       - name: Install Python
+        if: ${{steps.changed-files.outputs.any_changed == 'true'}}
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
@@ -68,7 +59,7 @@ jobs:
     runs-on: windows-latest
     permissions:
       contents: write
-    needs: [check_version]
+    needs: [check_changes]
 
     steps:
       - name: Checkout Repo
@@ -91,14 +82,14 @@ jobs:
         with: 
           type: 'zip'
           directory: Source/bin/Release/net48/
-          filename: Catsule-v${{ needs.check_version.outputs.version }}.zip
+          filename: Catsule-v${{ needs.check_changes.outputs.version }}.zip
       
       - name: Deploy Release
         uses: ncipollo/release-action@v1.12.0
         with:
-          name: Catsule-v${{ needs.check_version.outputs.version }}
-          tag: v${{ needs.check_version.outputs.version }}
-          artifacts: Source/bin/Release/net48/Catsule-v${{ needs.check_version.outputs.version }}.zip
+          name: Catsule-v${{ needs.check_changes.outputs.version }}
+          tag: v${{ needs.check_changes.outputs.version }}
+          artifacts: Source/bin/Release/net48/Catsule-v${{ needs.check_changes.outputs.version }}.zip
           makeLatest: true
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
