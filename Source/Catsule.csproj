@@ -11,10 +11,31 @@
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/thekaushikls/Catsule</RepositoryUrl>
+    <PackageIcon>catsule_logo_256-pixel.png</PackageIcon>
+    <PackageIconUrl />
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <ApplicationIcon>..\Assets\catsule_logo_24-pixel.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedResources\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="EmbeddedResources\catsule_icon.ico" />
+    <None Remove="EmbeddedResources\catsule_logo_256-pixel.ico" />
+    <None Include="..\Assets\catsule_logo_256-pixel.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
