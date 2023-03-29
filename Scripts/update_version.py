@@ -1,4 +1,4 @@
-# - - - - BUILD-IN IMPORTS
+# - - - - BUILT-IN IMPORTS
 import os, re
 
 # - - - - GLOBALS

@@ -11,27 +11,21 @@ namespace Catsule
         {
             if (Catsule.Instance.IsActive)
             {
-                Rhino.RhinoApp.WriteLine("Plugin is active");
                 string
                     rhinoFile = args.FileName,
                     grasshopperFile = rhinoFile.Replace(".3dm", ".gh");
 
                 if (System.IO.File.Exists(grasshopperFile))
                     DocumentHandler.OpenGrasshopperFiles(new List<string>() { grasshopperFile });
-            }
-            else
-            {
-                Rhino.RhinoApp.WriteLine("Plugin is not active");
+                else
+                    Rhino.RhinoApp.WriteLine($"Catsule: ❌ {System.IO.Path.GetFileName(grasshopperFile)} file was not found.");
             }
         }
 
         public static void OpenGrasshopperFiles(IEnumerable<string> filePaths)
         {
-            string cmd = "_-Grasshopper Banner Disable ";
             foreach (string filepath in filePaths)
-                cmd += $"Document Open {filepath} ";
-            cmd += "Window Load Window Show _Enter";
-            Rhino.RhinoApp.RunScript(cmd, false);
+                Grasshopper.Plugin.Commands.Run_GrasshopperOpen(filepath);
         }
 
         public static List<string> UnloadGrasshopper()
@@ -56,8 +50,8 @@ namespace Catsule
 
             if (flag == true)
             {
-                Grasshopper.Instances.UnloadAllObjects();
                 Grasshopper.Instances.ReloadMemoryAssemblies();
+                Grasshopper.Plugin.GH_PluginUtil.UnloadGrasshopper();
             }
 
             return openFiles;

@@ -28,8 +28,10 @@ namespace Catsule
             {
                 // `result` will always be of type => `Option`
                 Catsule.Instance.IsActive = isActiveOption.CurrentValue;
-                string status = isActiveOption.CurrentValue ? "Enabled" : "Disabled";
-                RhinoApp.WriteLine($"Autoload {status}");
+                string
+                    symbol = isActiveOption.CurrentValue ? "✔️" : "❌",
+                    status = isActiveOption.CurrentValue ? "Enabled" : "Disabled";
+                RhinoApp.WriteLine($"\nCatsule: {symbol} Autoload is now {status}.\n");
                 return Result.Success;
             }
             else

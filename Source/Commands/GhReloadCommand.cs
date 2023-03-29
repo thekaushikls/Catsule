@@ -17,8 +17,13 @@ namespace Catsule
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             List<string> openFiles = DocumentHandler.UnloadGrasshopper();
-            DocumentHandler.OpenGrasshopperFiles(openFiles);
-            return Result.Success;
+            if (openFiles.Count > 0)
+            {
+                openFiles.Reverse(); // Preserve file order
+                DocumentHandler.OpenGrasshopperFiles(openFiles);
+                return Result.Success;
+            }
+            return Result.Failure;
         }
     }
 }
