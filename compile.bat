@@ -1,0 +1,1 @@
+pyinstaller --onefile --icon=GH_Launcher-Icon-256x256.ico GH_Launcher.py
